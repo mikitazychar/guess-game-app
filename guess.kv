@@ -1,0 +1,100 @@
+#:import utils kivy.utils
+
+<StyledButton@Button>:
+    background_normal: ''
+    background_color: (0, 0, 0, 0)
+    font_size: '18sp'
+    bold: True
+    canvas.before:
+        Color:
+            rgba: (0.1, 0.7, 1, 1) if self.state == 'normal' else (0.1, 0.4, 0.6, 1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [15,]
+
+<Key@Button>:
+    background_normal: ''
+    background_color: (1, 1, 1, 0.05)
+    font_size: '24sp'
+    canvas.before:
+        Color:
+            rgba: (1, 1, 1, 0.1)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [10,]
+
+<DisplayLabel@Label>:
+    font_size: '40sp'
+    bold: True
+    color: (0.1, 0.7, 1, 1)
+    canvas.before:
+        Color:
+            rgba: (1, 1, 1, 0.05)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [15,]
+
+<MenuScreen>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#0f172a')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [40, 100]
+        spacing: 25
+        Label:
+            text: "GUESS [color=1ed7ff]NUMBER[/color]"
+            markup: True
+            font_size: '42sp'
+            bold: True
+        StyledButton:
+            text: "▶ ИГРАТЬ"
+            on_press: root.manager.current = 'game'
+        StyledButton:
+            text: "🏆 РЕКОРДЫ"
+            on_press: root.manager.get_screen('scores').update_table()
+
+<GameScreen>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#0f172a')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 15
+        Label:
+            id: info_label
+            text: "ВЫБЕРИТЕ УРОВЕНЬ"
+            font_size: '22sp'
+            size_hint_y: 0.2
+        BoxLayout:
+            id: container
+            orientation: 'vertical'
+            spacing: 10
+
+<ScoresScreen>:
+    canvas.before:
+        Color:
+            rgba: utils.get_color_from_hex('#0f172a')
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    BoxLayout:
+        id: scores_container
+        orientation: 'vertical'
+        padding: 20
+        spacing: 10
+        Label:
+            id: score_label
+            text: ""
+            markup: True
+            font_size: '18sp'
