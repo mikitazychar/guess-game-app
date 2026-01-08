@@ -2,6 +2,7 @@ import random
 import sqlite3
 from datetime import datetime
 
+
 class GuessGameLogic:
     def __init__(self):
         self.secret_number = 0
@@ -11,8 +12,8 @@ class GuessGameLogic:
 
     def _setup_db(self):
         with sqlite3.connect('scores.db') as conn:
-            conn.execute('''CREATE TABLE IF NOT EXISTS scores 
-                           (id INTEGER PRIMARY KEY AUTOINCREMENT, 
+            conn.execute('''CREATE TABLE IF NOT EXISTS scores
+                           (id INTEGER PRIMARY KEY AUTOINCREMENT,
                             date TEXT, score INTEGER, difficulty TEXT)''')
 
     def start_new_game(self, max_range, attempts):
@@ -28,7 +29,7 @@ class GuessGameLogic:
             return "win", score
         if self.attempts_left <= 0:
             return "lose", f"ПРОИГРЫШ\nЭто было {self.secret_number}"
-        
+
         hint = "Больше" if guess < self.secret_number else "Меньше"
         return "continue", f"{hint}!\nПопыток: {self.attempts_left}"
 
